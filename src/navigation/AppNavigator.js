@@ -1,53 +1,67 @@
 /* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/react-in-jsx-scope */
-// AppNavigator.js
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createStackNavigator} from '@react-navigation/stack';
+import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../screens/HomeScreen';
 import InternshipScreen from '../screens/InternshipScreen';
 import JobsScreen from '../screens/JobsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import CommonHeader from '../components/CommonHeader';
-import DrawerContent from '../components/DrawerContent';
 
-const Drawer = createDrawerNavigator();
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const StackNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="Home"
-      component={HomeScreen}
-      options={{
-        header: props => <CommonHeader title="Home" {...props} />,
-      }}
-    />
-    <Stack.Screen
-      name="Internship"
-      component={InternshipScreen}
-      options={{
-        header: props => <CommonHeader title="Internship" {...props} />,
-      }}
-    />
-    <Stack.Screen
-      name="Jobs"
-      component={JobsScreen}
-      options={{
-        header: props => <CommonHeader title="Jobs" {...props} />,
-      }}
-    />
-  </Stack.Navigator>
-);
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
 
-const AppNavigator = () => (
-  <NavigationContainer>
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={StackNavigator} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
-    </Drawer.Navigator>
-  </NavigationContainer>
-);
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Internship') {
+            iconName = focused ? 'work' : 'work-outline';
+          } else if (route.name === 'Jobs') {
+            iconName = focused ? 'list' : 'list-alt';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
 
-export default AppNavigator;
+          return <MaterialIcons name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Internship"
+        component={InternshipScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Jobs"
+        component={JobsScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{headerShown: false}}
+      />
+    </Tab.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
+}
