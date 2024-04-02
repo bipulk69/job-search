@@ -180,7 +180,7 @@ const HomeScreen = () => {
                   height: 270,
                   backgroundColor: 'white',
                   marginLeft: 10,
-                  borderRadius: 10,
+                  borderRadius: 20,
                   borderColor: 'white',
                   marginTop: 20,
                   padding: 10,
@@ -208,7 +208,6 @@ const HomeScreen = () => {
                   <Text>{item.location}</Text>
                   <Text>{item.salary}</Text>
                   <Text>{item.jobType}</Text>
-                  <Text>All</Text>
                 </View>
               </View>
             )}
@@ -216,6 +215,23 @@ const HomeScreen = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
           />
+        </View>
+
+        <View
+          style={{
+            backgroundColor: 'white',
+            marginTop: 20,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: 'black',
+              fontWeight: 'bold',
+              marginLeft: 10,
+            }}>
+            Popular certification course
+          </Text>
+          <View></View>
         </View>
       </ScrollView>
     </>
