@@ -208,6 +208,7 @@ const HomeScreen = () => {
                   <Text>{item.location}</Text>
                   <Text>{item.salary}</Text>
                   <Text>{item.jobType}</Text>
+                  <Text>All</Text>
                 </View>
               </View>
             )}
